@@ -61,6 +61,15 @@ export class ModalCreatePlanillaComponent {
     private snackBar: MatSnackBar,) {}
 
   ngOnInit(): void {
+    this.buildCreatePlanillaForm();
+    this.toggleFieldsBasedOnSelection();
+    this.getVehiculos();
+    this.getArmas();
+    this.getSituacionCombate();
+
+  }
+
+  buildCreatePlanillaForm(){
     this.planillaForm = this.fb.group({
       claseI: [false],
       agua: [false],
@@ -111,11 +120,6 @@ export class ModalCreatePlanillaComponent {
       vehiculoClaseV: [{ value: '', disabled: true }],
       arma: [[]],
     });
-    this.toggleFieldsBasedOnSelection();
-    this.getVehiculos();
-    this.getArmas();
-    this.getSituacionCombate();
-
   }
 
   public getVehiculos() {
@@ -455,10 +459,9 @@ export class ModalCreatePlanillaComponent {
         armas: formValue.arma,
         situacionCombate: formValue.situacionCombate,
         cantDias: formValue.cantidadDiasClaseV,
-        cantVehiculos: formValue.vehiculoClaseV?.capacidad
-        ? Math.ceil((((formValue.numEfectivoClaseI + (formValue.numEfectivoClaseI * 0.1)) * formValue.cantidadDiasClaseI) * 1.4) / (formValue.vehiculo.capacidad * 1000))
-        : null,
-          vehiculo: formValue.vehiculo? formValue.vehiculo: null
+        pesoCaja: formValue.pesoCaja,
+        cantMunicionPorCaja: formValue.cantMunicionPorCaja,
+        vehiculo: formValue.vehiculoClaseV? formValue.vehiculoClaseV: null
       };
     }
     console.log(newPlanilla )

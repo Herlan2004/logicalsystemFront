@@ -20,5 +20,9 @@ public createPlanilla(payload: any) {
 public getPlanillaById(id: string) {
   return this.http.get(`${environment.apiUrl}/planilla/${id}`);
 }
+public updatePlanilla(payload: any, updatedPlanilla: any) {
+  console.log(payload)
+  return this.http.post(`${environment.apiUrl}/planilla`, payload);
+}
 
 }
