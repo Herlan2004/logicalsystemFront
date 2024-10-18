@@ -1,0 +1,129 @@
+@import "../../styles/colors";
+@import "../../styles/mixins/page-list";
+@import "../../styles/mixins/table";
+@import "../../styles/mixins/paginator";
+@import "../../styles/mixins/dashboard";
+
+.dashboard {
+    @include dashboard(5%);
+    &__title {
+      @include title (2em, 5px, $btn-border-primary-mat solid )
+    }
+    &__back-icon {
+        @include back-button-icon(-44px, absolute, 38px);
+        margin-top: 0px;
+    }
+}
+
+::ng-deep .mdc-data-table__cell{
+    text-align: center !important;
+}
+.align-table {
+    @include align-table;
+}
+
+.user-table {
+    @include list-table;
+    table-layout: fixed;
+    word-wrap: break-word;
+    text-align: center;
+    td.mat-cell {
+        padding: 0px;
+    }
+    th.mat-header-cell:last-child {
+        width: 18%;
+    }
+}
+.small-column {
+  width: 140px; /* Ajusta este valor según tus necesidades */
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Añade puntos suspensivos si el contenido es muy largo */
+}
+::ng-deep .mat-paginator {
+
+    .mat-paginator-container {
+        @include mat-paginator-container;
+    }
+
+    .mat-select-value.ng-tns-c220-15 {
+        text-align: center;
+    }
+}
+
+.paginator-container {
+    @include paginator-container-size
+}
+
+.actions-section {
+    @include action-section;
+}
+
+.title-container {
+    @include title-container;
+}
+
+.search-container {
+    @include search-container;
+}
+
+.search-container-active {
+    @include search-container-active;
+}
+
+.btn-color-view {
+    @include btn-color($primary-color-blue);
+}
+
+.btn-color-edit {
+    @include btn-color($btn-color-edit-mat);
+}
+
+.btn-color-password {
+    @include btn-color($btn-border-primary-mat);
+}
+
+.btn-color-delete {
+    @include btn-color($secondary-color-coral-red);
+}
+
+.selection {
+    display: contents;
+}
+
+
+.switch {
+    @include switch;
+}
+
+.switch input {
+    @include switch-input;
+}
+
+.slider {
+    @include slider;
+}
+
+.slider:before {
+    @include slider-before;
+}
+
+input:checked+.slider {
+    background-color: $login-card-input-ripple-color;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px $secondary-color-coral-red;
+}
+
+input:checked+.slider:before {
+    @include checked-slider-before;
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}

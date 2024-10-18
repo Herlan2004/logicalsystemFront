@@ -1,0 +1,45 @@
+@import "../../styles/colors";
+@import "../../styles/sizes";
+
+mat-sidenav-container {
+  height: calc(100vh - 65px);
+}
+
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+
+  mat-icon {
+      margin-right: 8px;
+  }
+  color: white !important;
+}
+
+.avatar {
+  margin-top: 16px;
+  width: 180px;
+  height: 180px;
+  font-size: 100px;
+  border-radius: 50%;
+}
+
+.name {
+  font-weight: normal;
+  margin: 10px 0px;
+  font-size: $sidenav-name-text-size;
+}
+
+.designation {
+  margin-top: 2px;
+  font-size: 12px;
+  color: $sidenav-roles-text-color;
+}
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-top-color: white !important;
+}

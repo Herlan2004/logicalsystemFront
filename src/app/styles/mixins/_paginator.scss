@@ -1,0 +1,10 @@
+@mixin mat-paginator-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@mixin paginator-container-size {
+    width: 98%;
+    border: 5px;
+}

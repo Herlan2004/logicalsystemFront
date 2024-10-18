@@ -1,0 +1,76 @@
+<div class="actions-section">
+  <div class="title-container icon-title-container">
+    <mat-icon routerLink="/" class="dashboard__back-icon" fontIcon="arrow_back"></mat-icon>
+    <h1 class="title-container__title">Planillas</h1>
+  </div>
+
+  <div class="search-container">
+    <input id="focus" matTooltip="Buscar" matTooltipPosition="below" matTooltipShowDelay="600" matInput type="text"
+      class="search-container__input search-container-active" matInput placeholder="Buscar..." autocomplete="off"
+      (keyup)="onSearchKeyUp($event)">
+    <mat-icon class="search-container__icon" fontIcon="home"></mat-icon>
+  </div>
+
+  <div class="actions-section__btns-container">
+    <button class="actions-section__create-user-btn" (click)="showCreatePlanillaModal()" mat-raised-button>
+      <mat-icon fontIcon="plus_one"></mat-icon>
+      Nuevo Planilla
+    </button>
+  </div>
+</div>
+
+<div class="align-table">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 user-table">
+      <ng-container matColumnDef="date">
+          <th  mat-header-cell *matHeaderCellDef mat-sort-header class="user-table__column-title">
+            Fecha de Creacion
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.createdAt | date: 'dd/MM/yyyy    HH:mm' }}</td>
+      </ng-container>
+    <ng-container matColumnDef="agua">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef class="user-table__column-title ">
+        Agua
+      </th>
+      <td mat-cell *matCellDef="let element" >@if(element.agua){SI}@else{NO}</td>
+    </ng-container>
+    <ng-container matColumnDef="claseI">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="user-table__column-title">
+        Clase I
+      </th>
+      <td mat-cell *matCellDef="let element">@if(element.claseI){SI}@else{NO}</td>
+    </ng-container>
+    <ng-container matColumnDef="claseIii">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="user-table__column-title">
+        Clase III
+      </th>
+      <td mat-cell *matCellDef="let element" >@if(element.claseIii){SI}@else{NO}</td>
+    </ng-container>
+    <ng-container matColumnDef="claseV">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="user-table__column-title">
+        Clase V
+      </th>
+      <td mat-cell *matCellDef="let element">@if(element.claseV){SI}@else{NO}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="user-table__column-title small-column" >
+        Acciones
+      </th>
+      <td mat-cell *matCellDef="let element" class="user-table__text-center small-column" >
+
+        <button class="btn-color-edit" matTooltip="Editar" mat-mini-fab
+          (click)="openEditModal(element)">
+          <mat-icon class="icon" fontIcon="edit"> </mat-icon>
+        </button>
+        <button class="btn-color-print" matTooltip="Imprimir informe" mat-mini-fab (click)="goCheckUpDetail(element)">
+          <mat-icon class="icon"> assignment </mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator gastroSelector showFirstLastButtons [showTotalPages]="3"
+      [length]="dataSource?.paginator.length" class="paginator-container mat-elevation-z8" [pageSizeOptions]="[10, 20]">
+  </mat-paginator>
+</div>

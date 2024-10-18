@@ -1,0 +1,122 @@
+@mixin font-data ($color, $fontWeight, $fontSize){
+    color: $color;
+    font-weight: $fontWeight;
+    font-size: $fontSize;
+}
+
+@mixin action-section {
+    width: 90%;
+    margin: 15px 5% 10px 5%;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    flex-direction: row;
+    padding-bottom: 0%;
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+    }
+
+    &__dropdown-filter {
+        width: 12%;
+        padding: auto 1%;
+        margin: auto 1%;
+        padding-top: 1.34375em;
+
+        @media (max-width: 700px) {
+            width: 100%;
+            margin: 1% 0px;
+        }
+    }
+
+    &__btns-container:not(:disabled) {
+        width: 30%;
+        display: flex;
+        justify-content: flex-end;
+
+        @media (max-width: 700px) {
+            justify-content: flex-start;
+            width: 80%;
+        }
+    }
+
+    &__create-user-btn {
+        height: 44px;
+        background-color: $primary-color-blue;
+        color: $primary-color-white;
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: 5px 5px 20px $card-hover-box-shadow-color;
+            transform: translateY(-8%);
+        }
+    }
+
+    &__close-parallel-btn:not(:disabled) {
+        background-color: $primary-color-blue;
+        color: $primary-color-white;
+        margin-left: auto;
+    }
+}
+@mixin title-container {
+    position: relative;
+    width: 20%;
+    display: flex;
+    align-items: center;
+
+    &__title {
+        @include font-data($list-title-container, bold, 22pt);
+        margin-bottom: 0;
+    }
+
+    &__title-date {
+        @include font-data($list-title-container, bold, 18pt);
+        margin-left: 5%;
+    }
+}
+
+@mixin selection {
+    display: contents;
+}
+
+
+@mixin search-container-active {
+    width: 100%;
+    border-radius: 20px;
+    outline: none;
+}
+@mixin search-container {
+    position: relative;
+    width: 30%;
+    margin: 1%;
+
+    @media (max-width: 700px) {
+        width: 100%;
+        margin: 10px 0px;
+    }
+    
+    &__input {
+        box-shadow: 0px 1px 10px $card-box-shadow-color;
+        width: 40px;
+        box-sizing: border-box;
+        border-radius: 50px;
+        border: 0;
+        font-size: 16px;
+        background-color: $primary-color-white;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        padding: 12px 10px 12px 35px;
+        transition: width 0.4s ease-in-out;
+
+        &:focus {
+            @include search-container-active;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        pointer-events: none;
+    }
+}

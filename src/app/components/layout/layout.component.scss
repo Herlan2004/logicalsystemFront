@@ -1,0 +1,34 @@
+@import "../../styles/colors";
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    &__header {
+        height: 70px;
+    }
+
+    &__content {
+        flex: auto;
+        background-color: $layout-content-color;
+    }
+
+    &__footer {
+        height: 40px;
+        text-align: center;
+    }
+}
+
+mat-toolbar {
+  background: $primary-color-blue;
+  color: $toolbar-sidenav-text-color;
+}
+
+mat-sidenav {
+  width: 220px;
+  border-right: none;
+  background: $primary-color-dark-blue;
+  color: $toolbar-sidenav-text-color;
+  text-align: center;
+}

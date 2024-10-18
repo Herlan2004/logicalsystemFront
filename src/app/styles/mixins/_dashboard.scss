@@ -1,0 +1,38 @@
+@mixin dashboard ($marginLeft) {
+    position: relative;
+    height: auto;
+    margin-top: 2%;
+    width: 80%;
+    margin-left: $marginLeft;
+}
+
+@mixin back-button-icon ($marginLeft, $position, $width) {
+    color: $modal-close-btn-color;
+    position: $position;
+    margin: 0px;
+    margin-left: $marginLeft;
+    font-size: 2.5em;
+    width: $width;
+    height: 38px;
+    border-radius: 60%;
+
+    &:hover {
+        cursor: pointer;
+        transition: 0.5s;
+        background-color: $modal-hover-close-btn-color;
+    }
+}
+
+@mixin title ($fontSize, $paddingBotttom, $borderBottom) {
+    font-size: $fontSize;
+    padding-bottom: $paddingBotttom;
+    border-bottom: $btn-border-primary-mat $borderBottom;
+
+}
+
+@mixin icon{
+    font-size: 24px !important;
+    height: 24px !important;
+    width: 24px !important;
+
+}

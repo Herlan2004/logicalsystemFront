@@ -1,0 +1,329 @@
+<div class="modal" [ngClass]="getModalClass()">
+  <h1 class="modal__title" mat-dialog-title>Crear Planilla</h1>
+  <button class="modal__close-button">
+    <mat-icon class="modal__close-icon" [mat-dialog-close]="true">close</mat-icon>
+  </button>
+
+  <form [formGroup]="planillaForm" (ngSubmit)="onSubmit()">
+    <!-- Selección de Clases -->
+    <label>Seleccione las clases de abastecimiento:</label>
+    <div>
+      <mat-checkbox formControlName="claseI">Clase I</mat-checkbox>
+      <mat-checkbox formControlName="agua">Agua</mat-checkbox>
+      <mat-checkbox formControlName="claseIII">Clase III</mat-checkbox>
+      <mat-checkbox formControlName="claseV">Clase V</mat-checkbox>
+    </div>
+
+    <!-- Grid dinámico de columnas -->
+    <mat-grid-list [cols]="getGridColumns()" rowHeight="400px">
+      <!-- Columna Clase I -->
+       @if (planillaForm.get('claseI').value) {
+        <mat-grid-tile>
+          <div class="scrollable-content">
+            <h3>Clase I</h3>
+            @if (showEfectivosClaseI()) {
+              <mat-form-field appearance="outline">
+                <mat-label>Número de Efectivos</mat-label>
+                <input matInput placeholder="Número de Efectivos" type="number" formControlName="numEfectivoClaseI" />
+              </mat-form-field>
+            }
+            @if (!planillaForm.get('cantidadDiasClaseV').value) {
+              <mat-form-field appearance="outline">
+                <mat-label>Cantidad de Días</mat-label>
+                <input matInput placeholder="Cantidad de Días"  type="number" formControlName="cantidadDiasClaseI" />
+              </mat-form-field>
+            }
+          <mat-checkbox formControlName="calcularTraslado">Desea calcular el traslado</mat-checkbox>
+
+            @if(planillaForm.get('calcularTraslado').value){
+              <div>
+                <mat-form-field appearance="outline">
+                  <mat-label>Tipo de Combustible</mat-label>
+                  <mat-select formControlName="tipoCombustible" (selectionChange)="onCombustibleChange()">
+                    <mat-option value="DIESEL">Diesel</mat-option>
+                    <mat-option value="GASOLINA">Gasolina</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Selector de vehículos -->
+                <mat-form-field appearance="outline" >
+                  <mat-label>Vehículos</mat-label>
+                  <mat-select formControlName="vehiculo" >
+                    @for (vehiculo of filteredVehiculosClaseI; track $index) {
+                      <mat-option  [value]="vehiculo">
+                        {{ vehiculo.nombre }}
+                      </mat-option>
+                    }
+
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            }
+          </div>
+
+
+        </mat-grid-tile>
+       }
+
+      <!-- Columna Agua -->
+       @if (planillaForm.get('agua').value) {
+        <mat-grid-tile>
+          <div class="scrollable-content">
+            <h3>Agua</h3>
+            @if (showEfectivosAgua()) {
+              <mat-form-field appearance="outline">
+                <mat-label>Número de Efectivos</mat-label>
+                <input matInput placeholder="Número de Efectivos" formControlName="numEfectivoAgua" />
+              </mat-form-field>
+            }
+
+            <mat-form-field appearance="outline">
+              <mat-label>Días con Ducha</mat-label>
+              <input matInput placeholder="Días con Ducha" formControlName="diasConDucha" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Días sin Ducha</mat-label>
+              <input matInput placeholder="Días con Ducha" formControlName="diasSinDucha" />
+            </mat-form-field>
+            <mat-checkbox formControlName="calcularTrasladoAgua">Desea calcular el traslado</mat-checkbox>
+
+            @if(planillaForm.get('calcularTrasladoAgua').value){
+              <div>
+                <mat-form-field appearance="outline">
+                  <mat-label>Tipo de Combustible</mat-label>
+                  <mat-select formControlName="tipoCombustibleAgua" (selectionChange)="onCombustibleChangeAgua()">
+                    <mat-option value="DIESEL">Diesel</mat-option>
+                    <mat-option value="GASOLINA">Gasolina</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Selector de vehículos -->
+                <mat-form-field appearance="outline" >
+                  <mat-label>Vehículos</mat-label>
+                  <mat-select formControlName="vehiculoAgua" >
+                    @for (vehiculo of filteredVehiculosAgua; track $index) {
+                      <mat-option  [value]="vehiculo">
+                        {{ vehiculo.nombre }}
+                      </mat-option>
+                    }
+
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            }
+          </div>
+        </mat-grid-tile>
+       }
+
+
+      <!-- Columna Clase III -->
+       @if (planillaForm.get('claseIII').value) {
+        <mat-grid-tile>
+          <div class="scrollable-content">
+            <h3>Clase III</h3>
+            <mat-checkbox formControlName="calcularKopManual">Desea Ingresar el KOP manualmente</mat-checkbox>
+            @if (planillaForm.get('calcularKopManual').value) {
+              <mat-form-field appearance="outline">
+                <mat-label>KOP Total</mat-label>
+                <input matInput placeholder="KOP Total" formControlName="kopTotal" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Distancia Comun Total por Carretera</mat-label>
+                <input matInput type="number" formControlName="distCarreteraComun" placeholder="Distancia Total por Carretera" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Distancia Comun Total por Campo Traviesa Recorrida por Todos (Km)</mat-label>
+                <input matInput type="number" formControlName="distCampoTraviesaComun" placeholder="Distancia Total por Cmapo Traviesa"/>
+              </mat-form-field>
+
+              <!-- Checkbox para indicar que los vehículos se dividen en dos grupos -->
+              <mat-checkbox formControlName="dividirRecorrido">¿Dividir el recorrido en dos grupos?</mat-checkbox>
+
+              <!-- Si el usuario elige dividir el recorrido -->
+              @if (planillaForm.get('dividirRecorrido').value) {
+
+                <!-- Grupo 1 -->
+                <h4>Grupo 1</h4>
+                <mat-form-field appearance="outline">
+                  <mat-label>Distancia por Carretera Recorrido Grupo 1 (Km)</mat-label>
+                  <input matInput type="number" formControlName="distCarreteraGrupo1" placeholder="Distancia Grupo 1" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Distancia por Campo Traviesa Recorrido Grupo 1 (Km)</mat-label>
+                  <input matInput type="number" formControlName="distCampoTraviesaGrupo1" placeholder="Distancia Grupo 1" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>KOP Grupo 1 (Litros/Km)</mat-label>
+                  <input matInput type="number" formControlName="kopGrupo1" placeholder="KOP Grupo 1" />
+                </mat-form-field>
+
+                <!-- Grupo 2 -->
+                <h4>Grupo 2</h4>
+                <mat-form-field appearance="outline">
+                  <mat-label>Distancia por Carretera Recorrido Grupo 2 (Km)</mat-label>
+                  <input matInput type="number" formControlName="distCarreteraGrupo2" placeholder="Distancia Grupo 2" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Distancia por Campo Traviesa Recorrido Grupo 2 (Km)</mat-label>
+                  <input matInput type="number" formControlName="distCampoTraviesaGrupo2" placeholder="Distancia Grupo 2" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>KOP Grupo 2 (Litros/Km)</mat-label>
+                  <input matInput type="number" formControlName="kopGrupo2" placeholder="KOP Grupo 2" />
+                </mat-form-field>
+
+              }
+            }
+            @else {
+
+            <mat-form-field appearance="outline">
+              <mat-label>Distancia por Carretera</mat-label>
+              <input matInput placeholder="Distancia por Carretera" formControlName="distCarreteraComun" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Distancia por Campo Traviesa</mat-label>
+              <input matInput placeholder="Distancia por Campo Traviesa" formControlName="distCampoTraviesaComun" />
+            </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Tipo de Combustible</mat-label>
+                <mat-select formControlName="tipoCombustibleIii" (selectionChange)="onCombustibleChangeIii()">
+                  <mat-option value="DIESEL">Diesel</mat-option>
+                  <mat-option value="GASOLINA">Gasolina</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Vehiculos</mat-label>
+                <mat-select formControlName="vehiculos" multiple (selectionChange)="onVehiculoChange($event)">
+                  @for (vehiculo of filteredVehiculosClaseIii; track $index) {
+                    <mat-option [value]="vehiculo">
+                      {{ vehiculo.nombre }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+              <div>
+                @for (selectedVehiculo of planillaForm.get('vehiculos').value; track $index) {
+                  <div class="arma-quantity-container">
+                  <mat-chip [removable]="true" class="chip-vehiculo" (removed)="removeVehiculo(selectedVehiculo)">
+                    {{ selectedVehiculo.nombre }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <mat-form-field appearance="outline" class="arma-quantity-input">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput type="number" (input)="onCantidadChangeIii($index, $event)" />
+                  </mat-form-field>
+                  </div>
+                }
+
+              </div>
+            }
+
+            <mat-form-field appearance="outline">
+              <mat-label>Distancia de Abastecimiento</mat-label>
+              <input matInput placeholder="Distancia por Carretera" formControlName="distAbastecimiento" />
+            </mat-form-field>
+
+          </div>
+        </mat-grid-tile>
+       }
+
+
+      <!-- Columna Clase V -->
+       @if (planillaForm.get('claseV').value) {
+        <mat-grid-tile>
+          <div class="scrollable-content">
+            <h3>Clase V</h3>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Situacion de Combate</mat-label>
+              <mat-select formControlName="situacionCombate">
+                @for (situacion of situacionCombateList; track $index) {
+                  <mat-option  [value]="situacion">
+                    {{ situacion.tipo }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Armas</mat-label>
+              <mat-select formControlName="arma" multiple (selectionChange)="onArmaChange($event)">
+                @for (arma of armasList; track $index) {
+                  <mat-option [value]="arma">
+                    {{ arma.nombre }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Chips para mostrar las armas seleccionadas -->
+            <div>
+              @for (selectedArma of planillaForm.get('arma').value; track $index) {
+                <div class="arma-quantity-container">
+                <mat-chip [removable]="true" (removed)="removeArma(selectedArma)">
+                  {{ selectedArma.nombre }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <mat-form-field appearance="outline" class="arma-quantity-input">
+                  <mat-label>Cantidad</mat-label>
+                  <input matInput type="number" (input)="onCantidadChange($index, $event)" />
+                </mat-form-field>
+                </div>
+              }
+
+            </div>
+            @if (!planillaForm.get('cantidadDiasClaseI').value) {
+              <mat-form-field appearance="outline">
+                <mat-label>Cantidad de Días</mat-label>
+                <input matInput placeholder="Cantidad de Días" formControlName="cantidadDiasClaseV" />
+              </mat-form-field>
+            }
+            <mat-checkbox formControlName="calcularTrasladoClaseV">Desea calcular el traslado</mat-checkbox>
+
+            @if(planillaForm.get('calcularTrasladoClaseV').value){
+              <div>
+                <mat-form-field appearance="outline">
+                  <mat-label>Tipo de Combustible</mat-label>
+                  <mat-select formControlName="tipoCombustibleClaseV" (selectionChange)="onCombustibleChangeClaseV()">
+                    <mat-option value="DIESEL">Diesel</mat-option>
+                    <mat-option value="GASOLINA">Gasolina</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Selector de vehículos -->
+                <mat-form-field appearance="outline" >
+                  <mat-label>Vehículos</mat-label>
+                  <mat-select formControlName="vehiculoClaseV" >
+                    @for (vehiculo of filteredVehiculosClaseV; track $index) {
+                      <mat-option  [value]="vehiculo">
+                        {{ vehiculo.nombre }}
+                      </mat-option>
+                    }
+
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Cantidad de municiones por caja</mat-label>
+                  <input matInput type="number" formControlName="cantMunicionPorCaja" placeholder="Cantidad de municiones por caja" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Peso de cada caja</mat-label>
+                  <input matInput type="number" formControlName="pesoCaja" placeholder="Peso de cada caja<" />
+                </mat-form-field>
+              </div>
+            }
+
+          </div>
+        </mat-grid-tile>
+       }
+
+    </mat-grid-list>
+
+    <!-- Botón de Enviar -->
+    <div class="modal-actions" mat-dialog-actions>
+      <button class="action-buttons action-buttons--cancel" mat-raised-button mat-dialog-close>Cancelar</button>
+      <button class="action-buttons action-buttons--submit" mat-raised-button type="submit">Calcular</button>
+    </div>
+  </form>
+</div>

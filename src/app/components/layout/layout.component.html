@@ -1,0 +1,12 @@
+<div class="layout">
+    <app-header  [inputSideNav]="sidenav" class="layout__header"></app-header>
+    <mat-sidenav-container class="layout__content">
+        <mat-sidenav class="mat-elevation-z8" opened="true" >
+          <app-sidenav-content></app-sidenav-content>
+        </mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+  

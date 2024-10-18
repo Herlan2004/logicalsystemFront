@@ -1,0 +1,69 @@
+@mixin mat-form-field {
+    width: 100%;
+    margin-top: 0.75em;
+}
+ @mixin modal {
+    position: relative;
+    overflow: visible;
+    &__tittle{
+        font-size: 1.2em;
+        margin-top: -20px;
+        margin-bottom: 0px;
+        color: $color-secondary;
+        padding: 0px !important;
+    };
+    &__close-button{
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        font-size: 1.5em;
+        display: flex;
+        align-items: center;
+        background-color: $backbround-transparent-color;
+        border: none;
+    };
+    &__close-icon{
+        font-size: 1.2em; 
+        height: auto;
+        color: $modal-close-btn-color;
+        width: auto;
+        border-radius: 60%;
+        &:hover{
+            cursor: pointer;
+            transition: 0.5s;
+            background-color: $modal-hover-close-btn-color;
+        };
+    };
+ }
+@mixin modal-content ($width, $inputWidth){
+    width: $width;
+    &__input{
+        width: $inputWidth;
+    };
+}
+@mixin modal-actions {
+    justify-content: space-around;
+}
+@mixin action-buttons {
+    color: $primary-color-white;
+    width: 20%;
+    margin: 10px;
+    padding: 0px 5px 0px 5px;
+    &--cancel{
+        background-color: $secondary-color-coral-red;
+    };
+    &--submit{
+        background-color: $primary-color-blue;
+    };
+}
+@mixin box-selection {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0px;
+}
+@mixin box-user-selected {
+    background: $box-user-selected-background;
+    padding: 15px;
+    line-height: 2.5;
+    color: $box-user-selected-text-color;
+}

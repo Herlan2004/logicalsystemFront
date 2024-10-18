@@ -1,0 +1,166 @@
+@import "../../styles/colors";
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.no-click {
+    pointer-events: none;
+}
+
+.list__title {
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: $primary-color-white;
+
+    &__logo {
+        width: 80px;
+        margin-left: 5px;
+        margin-bottom: 5px;
+    }
+
+    &__label {
+        margin-top: 10px;
+        vertical-align: auto;
+    }
+
+    &__title {
+        font-size: 20pt;
+        padding-left: 15px;
+    }
+}
+
+.logo-container__menu {
+    width: 70px;
+    height: 70px;
+    color: white;
+    font-size: 70px !important;
+    margin-top: 8px;
+    border-radius: 50%;
+}
+
+.profile-container {
+    height: 50px;
+    width: auto;
+    align-items: center;
+    padding-top: 10px;
+    line-height: 1.2;
+    position: relative;
+    text-align: center;
+    padding-right: 20px;
+
+    &__name {
+        color: $primary-color-white;
+        font-size: 24px
+    }
+
+    &__role {
+        color: $primary-color-white;
+        font-size: 12px;
+    }
+
+    &__icon {
+        color: $primary-color-white;
+        padding-right: 40px;
+        font-size: 50px;
+        position: relative;
+        top: 5px;
+    }
+
+    &__icon-notification {
+        color: $primary-color-white;
+        margin-right: 30px;
+        font-size: 38px;
+        position: relative;
+        top: -5px;
+    }
+
+}
+
+.header {
+    background-color: $primary-color-dark-blue;
+    align-items: center;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+
+    &__menu-button {
+        color: $toolbar-sidenav-text-color !important;
+    }
+
+    &__menu-button-icon {
+        color: $toolbar-sidenav-text-color !important;
+        font-size: 24px !important;
+        height: 24px !important;
+        width: 24px !important;
+    }
+}
+
+.bubble {
+    background: red;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    left: -30px;
+    border-radius: 50%;
+    top: -8px;
+}
+
+.notification-icon {
+    position: relative;
+}
+
+.notification-menu {
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notification-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    background-color: $text-color-for-dark-background;
+    transition-property: background-color 0.3 ease;
+    width: 100%;
+    padding: 10 0 0 10;
+}
+
+.notification-content {
+    flex: 1;
+    line-height: 1.2;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.notification-close {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.content-list{
+    height: auto !important;
+    display: flex !important;
+}
+
+::ng-deep .mat-mdc-list-item-unscoped-content{
+    display: flex !important;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+}
+
+.options-list{
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+
+}

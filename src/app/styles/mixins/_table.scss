@@ -1,0 +1,118 @@
+@mixin align-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    th.mat-header-cell:first-of-type{
+        padding-left: 0px;
+    }
+}
+
+@mixin list-table {
+    width: 98% !important;
+    min-width: auto;
+    td.mat-cell {
+        padding: 0 24px 0 24px;
+        text-align: center;
+    }
+
+    &__column-title {
+        font-size: 1.1em;
+        background-color: $primary-color-blue !important;
+        color: $primary-color-white;
+        text-align: center;
+    }
+
+    &__icon-column {
+        text-align: center;
+
+        &_icon-positive {
+            color: $check-positive-color-icon;
+        }
+
+        &_icon-negative {
+            color: $check-negative-color-icon;
+        }
+    }
+
+    &__text-center {
+        text-align: center;
+    }
+
+    &::ng-deep .mat-sort-header-arrow {
+        color: $primary-color-white;
+    }
+
+    &::ng-deep .mat-sort-header-container {
+        display: flex;
+        justify-content: center;
+        padding: 0 0 0 18px;
+    }
+}
+
+@mixin btn-color($backgroundColor) {
+    background-color: $backgroundColor !important;
+    color: white !important;
+    transform: scale(0.95) !important;
+
+    &:hover {
+        cursor: pointer;
+        transform: translateY(-5%);
+    }
+}
+
+@mixin code {
+    @include font-data($check-positive-color-icon, normal, 15px);
+    &__option {
+        color: $check-positive-color-icon;
+    }
+
+    .date {
+        color: $card-box-shadow-color;
+        font-weight: bold;
+        font-size: large;
+    }
+}
+
+@mixin switch {
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    width: 60px;
+    height: 34px;
+}
+
+@mixin switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+@mixin slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $secondary-color-coral-red;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+@mixin slider-before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+@mixin checked-slider-before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}

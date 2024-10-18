@@ -1,0 +1,104 @@
+@import "../../styles/colors";
+@import "../../styles/mixins/modal";
+
+mat-form-field {
+  width: 90%;
+}
+.arma-quantity-input{
+  width: 30%;
+}
+.chip-vehiculo{
+  width: 69%;
+}
+.modal {
+    @include modal;
+    padding: 20px;
+
+    &__close-icon {
+        font-size: 1.2em;
+        height: auto;
+        color: $modal-close-btn-color;
+        width: auto;
+        border-radius: 60%;
+        &:hover {
+            cursor: pointer;
+            background-color: $modal-hover-close-btn-color;
+        }
+    }
+}
+::ng-deep .mdc-evolution-chip__text-label{
+ white-space: normal !important ;
+}
+.scrollable-content {
+    max-height: 380px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+::ng-deep .mat-grid-tile-content{
+  display: inline !important;
+}
+
+.modal-content {
+    @include modal-content(100vh, 30%);
+    max-height: 80vh;
+    overflow-y: auto;
+
+    &__input {
+        width: 30%;
+    }
+
+    &__radio-and-checkbox {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
+}
+
+.modal-actions {
+    @include modal-actions;
+}
+
+.action-buttons {
+    @include action-buttons;
+}
+
+.modal-mail-input {
+    display: flex;
+    align-items: flex-end;
+}
+
+.mail-list {
+    width: 30%;
+}
+
+.mail-input {
+    width: 50%;
+    margin-right: 20px;
+}
+
+.modal-dropdown {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    mat-form-field {
+        width: 100%;
+    }
+}
+
+@media (min-width: 500px) {
+    .dynamic-width-1 {
+        width: 340px;
+    }
+    .dynamic-width-2 {
+        width: 680px;
+    }
+    .dynamic-width-3 {
+        width: 1020px;
+    }
+    .dynamic-width-4 {
+        width: 1360px;
+    }
+}
